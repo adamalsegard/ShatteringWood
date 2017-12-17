@@ -13,13 +13,13 @@ cmds.setAttr('log1.translateY', 50)
 
 log2 = cmds.polyCylinder(r=2.5, h=16, sx=40, sy=20, sz=20, ax=(0, 0, 1), name='log2', ch=0, cuv=3)
 cmds.setAttr('log2.translateY', 70)
-cmds.setAttr('log2.rotateY', 25)
+#cmds.setAttr('log2.rotateY', 25)
 #cmds.rigidBody(active=True, mass=7.5, b=0)
 
 log3 = cmds.polyCylinder(r=3.5, h=12, sx=40, sy=20, sz=20, ax=(0, 0, 1), name='log3', ch=0, cuv=3)
 cmds.setAttr('log3.translateY', 100)
 cmds.setAttr('log3.translateX', 5)
-cmds.setAttr('log3.rotateY', 90)
+#cmds.setAttr('log3.rotateY', 90)
 #cmds.rigidBody(active=True, mass=10, b=0)
 
 # Create passiv floor
@@ -32,5 +32,5 @@ grav = cmds.gravity(pos=(0, 0, 0), m=9.8, dx=0, dy=-1, dz=0, att=0, mxd=-1, name
 #cmds.connectDynamic( 'log1', 'log2', 'log3', f='myGravity' )
 
 # Add some light
-cmds.directionalLight(name='dirLight', decayRate=2, intensity=90, rgb=(1.0, 0.8, 0.8), rotation=(45, 70, 60))
+#cmds.directionalLight(name='dirLight', decayRate=2, intensity=90, rgb=(1.0, 0.8, 0.8), rotation=(45, 70, 60))
 

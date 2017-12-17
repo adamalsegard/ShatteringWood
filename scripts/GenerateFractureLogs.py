@@ -18,9 +18,9 @@ for obj in selected:
     
     # Get center point of collision (in our case center of the logs)
     com = cmds.objectCenter(obj, gl=True)
-    numPoints = 20
-    fractureRadius = 1
-    thickness = 12 # Will get divided by 2
+    numPoints = 30
+    fractureRadius = 3
+    thickness = 1 # Will get divided by 2
     height = cmds.getAttr(obj + '.translateY')
     transX = cmds.getAttr(obj + '.translateX')
     rotY = cmds.getAttr(obj + '.rotateY')
@@ -30,7 +30,7 @@ for obj in selected:
     #print(height)
     
     
-    # Help function TODO: rewrite this
+    # Help function 
     def surfaceMaterial(obj, R, G, B):
         name = (obj + '_shardMaterial')
         if ( cmds.objExists(name) == 0 ):
@@ -45,17 +45,18 @@ for obj in selected:
         r = random.gauss(0, fractureRadius)
         theta = random.random() * 2 * math.pi
         voroX.append((r * math.cos(theta)) + transX)
-        voroY.append((r * math.sin(theta) * 2) + height) 
-        voroZ.append((random.random()-0.5) * thickness) # [-0.5, 0.5[ * 24 -> [-12, 12]
+        voroY.append((r * math.sin(theta)) + height) 
+        voroZ.append((random.random()-0.5) * thickness) # [-0.5, 0.5[ * thickness
         
-        #temp = cmds.polyCube(name='temp'+str(obj)+str(i))
-        #cmds.setAttr('temp'+str(obj)+str(i)+'.translateX', voroX[i])
-        #cmds.setAttr('temp'+str(obj)+str(i)+'.translateY', voroY[i])
-        #cmds.setAttr('temp'+str(obj)+str(i)+'.translateZ', voroZ[i])
-
+        '''
+        temp = cmds.polyCube(name='temp'+str(obj)+str(i))
+        cmds.setAttr('temp'+str(obj)+str(i)+'.translateX', voroX[i])
+        cmds.setAttr('temp'+str(obj)+str(i)+'.translateY', voroY[i])
+        cmds.setAttr('temp'+str(obj)+str(i)+'.translateZ', voroZ[i])
+        '''
     
     voroPoints = zip(voroX, voroY, voroZ)
-    surfaceMat = surfaceMaterial(obj, 0.5, 0.5, 1)
+    surfaceMat = surfaceMaterial(obj, 1.0, 0.1, 0.4)
     #print(voroPoints)
     
     
@@ -122,11 +123,11 @@ for obj in selected:
     
     # Set bullet solver attributes
     cmds.setAttr(solverName+'.collisionShapeType', 4)
-    cmds.setAttr(solverName+'.defaultMass', 5)
+    cmds.setAttr(solverName+'.defaultMass', 8)
     cmds.setAttr(solverName+'.glueShapes', 1)
     cmds.setAttr(solverName+'.collisionShapeMargin', 0)
-    cmds.setAttr(solverName+'.glueBreakingThreshold', 3)
-    cmds.setAttr(solverName+'.glueMaxConstraintsPerBody', 10)
+    cmds.setAttr(solverName+'.glueBreakingThreshold', 5)
+    cmds.setAttr(solverName+'.glueMaxConstraintsPerBody', 15)
 
 # Connect generated shards to the gravity field
 #for i in range(4,33):
